@@ -1,0 +1,49 @@
+#Get account names and character name of all Warrior Class
+PREFIX mmorpg: <http://example.com/mmorpg#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+select * where {
+    ?account rdf:type mmorpg:Account ;
+       mmorpg:name ?accountName ;
+       mmorpg:hasCharacter ?character .
+    	
+    ?character mmorpg:hasClass ?characterClass ;
+               mmorpg:level    ?characterLevel ;
+               mmorpg:hasStatus	?characterStatus;
+    		   mmorpg:name		?nameCharacter . 
+    FILTER(?characterClass IN(mmorpg:Warrior))
+    		   
+} limit 100
+
+#relation between character and creep/character
+PREFIX mmorpg: <http://example.com/mmorpg#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+select ?entity ?otherEntity ?otherEntityName where {
+    ?entity rdf:type mmorpg:MmorpgEntity ;
+    		mmorpg:ranInto ?otherEntity .
+    ?otherEntity mmorpg:name     ?otherEntityName .
+      			
+    		   
+} limit 100
+
+#info about entities and resources
+PREFIX mmorpg: <http://example.com/mmorpg#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+select ?entity ?resource ?resourcename where {
+    ?entity rdf:type mmorpg:MmorpgEntity ;
+    		mmorpg:hasResource ?resource .
+    ?resource mmorpg:name     ?resourcename .
+      			
+    		   
+} limit 100
+
+
+#entity and quests
+PREFIX mmorpg: <http://example.com/mmorpg#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+select ?entity ?quest ?questname where {
+    ?entity rdf:type mmorpg:MmorpgEntity ;
+    		mmorpg:hasQuest ?quest .
+    ?quest mmorpg:name     ?questname .
+      			
+    		   
+} limit 100
