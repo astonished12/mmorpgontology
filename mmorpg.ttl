@@ -1,387 +1,609 @@
-@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
-@prefix owl:    <http://www.w3.org/2002/07/owl#> .
-@prefix owl2:    <http://www.w3.org/2002/07/owl2#> .
-
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix mmorpg: <http://example.com/mmorpg#> .
 @prefix schema: <http://schema.org/> .
-@prefix foaf:   <http://xmlns.com/foaf/0.1> .
-
-@prefix dbo:    <http://dbpedia.org/ontology/> .
-@prefix dbr:    <http://dbpedia.org/resource/> .
-@prefix dbp:    <http://dbpedia.org/property/> .
-
-@prefix wde:    <http://www.wikidata.org/entity/> .
-@prefix wds:    <http://www.wikidata.org/entity/statement/> .
-@prefix wdref:  <http://www.wikidata.org/reference/> .
-@prefix wdv:    <http://www.wikidata.org/value/> .
-@prefix wdp:    <http://www.wikidata.org/prop/> .
-@prefix wdt:    <http://www.wikidata.org/prop/direct/> .
-@prefix wdtn:   <http://www.wikidata.org/prop/direct-normalized/> .
-@prefix wdps:   <http://www.wikidata.org/prop/statement/> .
-@prefix wdpsv:  <http://www.wikidata.org/prop/statement/value/> .
-@prefix wdpsn:  <http://www.wikidata.org/prop/statement/value-normalized/> .
-@prefix wdpq:   <http://www.wikidata.org/prop/qualifier/> .
-@prefix wdpqv:  <http://www.wikidata.org/prop/qualifier/value/> .
-@prefix wdpqn:  <http://www.wikidata.org/prop/qualifier/value-normalized/> .
-@prefix wdpr:   <http://www.wikidata.org/prop/reference/> .
-@prefix wdprv:  <http://www.wikidata.org/prop/reference/value/> .
-@prefix wdprn:  <http://www.wikidata.org/prop/reference/value-normalized/> .
-@prefix wdwdno: <http://www.wikidata.org/prop/novalue/> .
-@prefix mmorpg:  <http://example.com/mmorpg#> .
-
-
-# Classes
-mmorpg:MmorpgEntity  rdf:type owl:Class ;
-                     rdfs:comment  "Gernic mmorpg entity" .
-
-mmorpg:Account       rdf:type owl:Class ;
-                     rdfs:subClassOf   mmorpg:MmorpgEntity, foaf:Person ;
-                     rdfs:comment  "Gernic account entity" .
-
-mmorpg:Resource      rdf:type           owl:Class ;
-                     rdfs:subClassOf    mmorpg:MmorpgEntity ;
-                     rdfs:comment       "Gernic resource entity" .
-
-mmorpg:Character     rdf:type owl:Class ;
-                     rdfs:subClassOf   mmorpg:MmorpgEntity ;
-                     rdfs:comment  "Gernic character entity" .
-
-mmorpg:Ability       rdf:type owl:Class ;
-                     rdfs:subClassOf   mmorpg:MmorpgEntity ;
-                     rdfs:comment  "Gernic ability entity" .
-
-mmorpg:Status       rdf:type owl:Class ;
-                    rdfs:subClassOf   mmorpg:MmorpgEntity ;
-                    rdfs:comment  "Gernic status entity" .
-
-mmorpg:Class         rdf:type owl:Class ;
-                     rdfs:subClassOf   mmorpg:MmorpgEntity ;
-                     rdfs:comment  "Gernic class entity" .
-
-mmorpg:Region        rdf:type owl:Class ;
-                     rdfs:subClassOf   mmorpg:MmorpgEntity ;
-                     rdfs:comment  "Gernic region entity" .
-
-mmorpg:NPC           rdf:type owl:Class ;
-                     rdfs:subClassOf   mmorpg:MmorpgEntity ;
-                     rdfs:comment  "Gernic non-player character entity" .
-
-mmorpg:Creep         rdf:type owl:Class ;
-                     rdfs:subClassOf   mmorpg:MmorpgEntity;
-                     rdfs:comment  "Gernic creep entity" .
-
-mmorpg:Quest         rdf:type owl:Class ;
-                     rdfs:subClassOf   mmorpg:MmorpgEntity ;
-                     rdfs:comment       "Generic quest entity" .
-
-# Properties
-mmorpg:name                 rdf:type                owl:DatatypeProperty, owl:FunctionalProperty ;
-                            rdfs:comment            "Name of the resource (string)" ;
-                            rdfs:domain             mmorpg:MmorpgEntity ;
-                            rdfs:range              xsd:string ;
-                            owl:equivalentProperty  rdfs:label .
-
-
-mmorpg:gender               rdf:type                owl:DatatypeProperty, owl:FunctionalProperty ;
-                            rdfs:comment            "Sex of the character" ;
-                            rdfs:domain             mmorpg:Character ;
-                            rdfs:range              xsd:string ;
-                            owl:oneOf               ("male" "female") ;
-                            owl:equivalentProperty  foaf:gender .
-                            
-mmorpg:value                rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General value of an entity";
-                            rdfs:domain             mmorpg:Resource;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-                            
-mmorpg:level                rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General level of an entity";
-                            rdfs:domain             mmorpg:Character, mmorpg:Creep;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-mmorpg:expPoints            rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General experience points of an entity";
-                            rdfs:domain             mmorpg:Character;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-mmorpg:lifePoints           rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General life points of an entity";
-                            rdfs:domain             mmorpg:Character;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-mmorpg:manaPoints           rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General mana points of an entity";
-                            rdfs:domain             mmorpg:Character;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-mmorpg:vitality             rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General experience points of an entity";
-                            rdfs:domain             mmorpg:Character;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-
-mmorpg:dexterity            rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General experience points of an entity";
-                            rdfs:domain             mmorpg:Character;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-
-mmorpg:intelligence         rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General experience points of an entity";
-                            rdfs:domain             mmorpg:Character;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-
-mmorpg:strength             rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General experience points of an entity";
-                            rdfs:domain             mmorpg:Character;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-
-mmorpg:castTime             rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "General cast time for ability";
-                            rdfs:domain             mmorpg:Ability;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-
-mmorpg:damage               rdf:type                owl:DatatypeProperty;
-                            rdfs:comment            "Total life points damage for ability";
-                            rdfs:domain             mmorpg:Character;
-                            rdfs:range              xsd:nonNegativeInteger.
-
-mmorpg:lastLoginDate        rdfs:type               owl:DatatypeProperty ;
-                            rdfs:comment           "The last login date of the MMORPG ACCOUNT - since when the Account perfoms" ;
-                            rdfs:domain             mmorpg:Account ;
-                            rdfs:range              xsd:date .
-
-
-
-mmorpg:hasCharacter         rdfs:type               owl:ObjectProperty ;
-                            rdfs:comment           "Account hasCharacter a Character" ;
-                            rdfs:domain             mmorpg:Account ;
-                            rdfs:range              mmorpg:Character ;
-                            owl:inverseOf           mmorpg:createdBy .
-
-mmorpg:hasStatus            rdf:type                owl:ObjectProperty;
-                            rdfs:comment            "Character has an specific status";
-                            rdfs:domain             mmorpg:Character;
-                            rdfs:range              mmorpg:Status.
+@base <http://www.w3.org/2002/07/owl#> .
 
-mmorpg:createdBy            rdfs:type               owl:ObjectProperty ;
-                            rdfs:comment            "Character created by an Account" ;
-                            rdfs:domain             mmorpg:Character ;
-                            rdfs:range              mmorpg:Account ;
-                            owl:inverseOf           mmorpg:hasCharacter .
-                
-mmorpg:influences            rdfs:type               owl:ObjectProperty ;
-                            rdfs:comment            "Status of an character influences his ability" ;
-                            rdfs:domain             mmorpg:Status ;
-                            rdfs:range              mmorpg:Ability ;
-                            owl:inverseOf           mmorpg:influencedBy .
-  
-mmorpg:influencedBy         rdfs:type               owl:ObjectProperty ;
-                            rdfs:comment            "Ability influenced by an status of character" ;
-                            rdfs:domain             mmorpg:Ability ;
-                            rdfs:range              mmorpg:Status ;
-                            owl:inverseOf           mmorpg:influences .
-  
-mmorpg:hasResource         rdf:type                owl:ObjectProperty ;
-                           rdfs:comment           "Resource describing the entity" ;
-                           rdfs:domain             mmorpg:Character, mmorpg:Creep ;
-                           rdfs:range              mmorpg:Resource ;
-                           owl:inverseOf           mmorpg:ownedBy .
-
-
-mmorpg:hasAbility          rdf:type                owl:ObjectProperty ;
-                           rdfs:comment           "Resource describing the entity" ;
-                           rdfs:domain             mmorpg:Character;
-                           rdfs:range              mmorpg:Ability .
-                           
-mmorpg:ownedBy             rdf:type                 owl:ObjectProperty ;
-                           rdfs:comment            "Resource ownedBy Character, Creep" ;
-                           rdfs:domain             mmorpg:Resource ;
-                           rdfs:range              mmorpg:Character, mmorpg:Creep ;
-                           owl:inverseOf           mmorpg:hasResource .
-
-mmorpg:isLocated           rdf:type                owl:ObjectProperty ;
-                           rdfs:comment            "Location of the enity" ;
-                           rdfs:domain             mmorpg:Region ;
-                           rdfs:range              mmorpg:Character, mmorpg:Creep, mmorpg:NPC . 
-
-mmorpg:hasClass            rdf:type                owl:ObjectProperty  ;
-                           rdfs:comment            "Character has an specific class" ;
-                           rdfs:domain             mmorpg:Class ;
-                           rdfs:range              mmorpg:Character .
-
-mmorpg:ranInto             rdf:type                owl:ObjectProperty  ;
-                           rdfs:comment            "Action between  two entities" ;
-                           rdfs:domain             mmorpg:Character, mmorpg:Creep ;
-                           rdfs:range              mmorpg:Character, mmorpg:Creep .
-
-mmorpg:hasQuest           rdf:type                owl:ObjectProperty  ;
-                          rdfs:comment            "NPC has an specific mission" ;
-                          rdfs:domain             mmorpg:mmorpg:Character ;
-                          rdfs:range              mmorpg:Quest .
-
-
-mmorpg:giveQuest          rdf:type                owl:ObjectProperty  ;
-                          rdfs:comment            "NPC has an specific mission" ;
-                          rdfs:domain             mmorpg:mmorpg:NPC ;
-                          rdfs:range              mmorpg:Quest ;
-                          owl:inverseOf           mmorpg:givenBy .
-
-
-mmorpg:givenBy            rdf:type               owl:ObjectProperty ;
-                          rdfs:comment            "Quest is given by NPC" ;
-                          rdfs:domain             mmorpg:Quest ;
-                          rdfs:range              mmorpg:NPC ;
-                          owl:inverseOf           mmorpg:giveQuest .
-
-
-mmorpg:contains           rdf:type               owl:ObjectProperty ;
-                          rdfs:comment            "Location can contains a group of entities" ;
-                          rdfs:domain             mmorpg:Region ;
-                          rdfs:range              mmorpg:Creep, mmorpg:Character .
-                          owl:inverseOf           mmorpg:givenBy .
-
-# Sample Instances
-mmorpg:Warrior             rdf:type                 mmorpg:Class ;
-                           mmorpg:comment           "Warrior class" .
-
-mmorpg:Mage                rdf:type                 mmorpg:Class ;
-                           mmorpg:comment           "Mage class" .
-
-mmorpg:Assasin             rdf:type                 mmorpg:Class ;
-                           mmorpg:comment           "Assasin class" .
-
-mmorpg:Shaman              rdf:type                 mmorpg:Class ;
-                           mmorpg:comment           "Shaman class" .
-
-
-
-
-mmorpg:Account_1                        rdf:type                 mmorpg:Account ;
-                                        mmorpg:name              "Account_1" ;
-                                        mmorpg:lastLoginDate    "2018-16-01"^^xsd:date ;
-                                        mmorpg:hasCharacter     mmorpg:Account_1_Character_1   .
-
-
-mmorpg:Account_1_Character_1            rdf:type                mmorpg:Character ;
-                                        mmorpg:name             "Account_1_Character_1"  ;
-                                        mmorpg:createdBy        mmorpg:Account_1 ;
-                                        mmorpg:hasResource      mmorpg:Gold_Instantiation_2, mmorpg:Item_1 ;
-                                        mmorpg:level            1;
-                                        mmorpg:lifePoints       1000;
-                                        mmorpg:manaPoints       100;
-                                        mmorpg:gender           "male"          ;
-                                        mmorpg:isLocated        mmorpg:Region_1 ;
-                                        mmorpg:ranInto          mmorpg:Account_2_Character_1, mmorpg:Creep_Instantiation_1 ;
-                                        mmorpg:hasQuest         mmorpg:Quest_1 ;
-                                        mmorpg:hasStatus        mmorpg:Status_Account_1_Character_1;                                        
-                                        mmorpg:hasAbility       mmorpg:Ability_1_Account_1_Character_1;
-                                        mmorpg:hasClass         mmorpg:Warrior .
-
-mmorpg:Status_Account_1_Character_1    rdf:type                 mmorpg:Status;
-                                       mmorpg:vitality          5;
-                                       mmorpg:dexterity         5;
-                                       mmorpg:strength          5;
-                                       mmorpg:intelligence      5;
-                                       mmorpg:influences        mmorpg:Ability_1_Account_1_Character_1. 
- 
-
-
-mmorpg:Status_Account_2_Character_1    rdf:type                 mmorpg:Status;
-                                       mmorpg:vitality          5;
-                                       mmorpg:dexterity         5;
-                                       mmorpg:strength          5;
-                                       mmorpg:intelligence      5.
-
-mmorpg:Ability_1_Account_1_Character_1  rdf:type                mmorpg:Ability;
-                                        mmorpg:name             "Basic ability";
-                                        mmorpg:damage           300;
-                                        mmorpg:castTime         10;
-                                        mmorpg:influencedBy     mmorpg:Status_Account_1_Character_1.
-
-mmorpg:Account_2                        rdf:type                 mmorpg:Account ;
-                                        mmorpg:name              "Account_2" ;
-                                        mmorpg:lastLoginDate     "2018-20-01"^^xsd:date ;
-                                        mmorpg:hasCharacter      mmorpg:Account_2_Character_1   .
-
-
-mmorpg:Account_2_Character_1            rdf:type                mmorpg:Character ;
-                                        mmorpg:name             "Account_2_Character_1"  ;
-                                        mmorpg:createdBy        mmorpg:Account_2 ;
-                                        mmorpg:hasResource      mmorpg:Gold_Instantiation_2 ;
-                                        mmorpg:gender           "male"          ;
-                                        mmorpg:isLocated        mmorpg:Region_1 ;
-                                        mmorpg:hasClass         mmorpg:Warrior .
-
-
-mmorpg:Account_1_Character_2            rdf:type                mmorpg:Character ;
-                                        mmorpg:name             "Account_1_Character_2"  ;
-                                        mmorpg:createdBy        mmorpg:Account_1 ;
-                                        mmorpg:gender           "female"          ;
-                                        mmorpg:level            30;
-                                        mmorpg:lifePoints       5000;
-                                        mmorpg:manaPoints       500;
-                                        mmorpg:isLocated        mmorpg:Region_1 ;
-                                        mmorpg:hasClass         mmorpg:Shaman .
-
-
-mmorpg:Item_1                           rdf:type                mmorpg:Resource ;
-                                        mmorpg:name             "Item_1"  ;
-                                        mmorpg:value            1 ;                                   
-                                        mmorpg:ownedBy          mmorpg:Account_1_Character_1 .
-
-
-mmorpg:Gold_Instantiation_1             rdf:type                mmorpg:Resource ;
-                                        mmorpg:name             "Gold_Instantiation_1"  ;
-                                        mmorpg:value            500 ;                                   
-                                        mmorpg:ownedBy          mmorpg:Creep_Instantiation_1 .
-
-
-mmorpg:Gold_Instantiation_2             rdf:type                mmorpg:Resource ;
-                                        mmorpg:name            "Gold_Instantiation_1"  ;
-                                        mmorpg:value            500000 ;                                   
-                                        mmorpg:ownedBy          mmorpg:Account_1_Character_1, mmorpg:Creep_Instantiation_3 .
-
-
-mmorpg:Creep_Instantiation_1            rdf:type                mmorpg:Creep ;
-                                        mmorpg:name             "Creep_Instantiation_1" ;
-                                        mmorpg:isLocated        mmorpg:Region_1 ;
-                                        mmorpg:hasResource      mmorpg:Gold_Instantiation_1 .
-
-mmorpg:Creep_Instantiation_2            rdf:type                mmorpg:Creep ;
-                                        mmorpg:name             "Creep_Instantiation_2" ;
-                                        mmorpg:hasResource      mmorpg:Gold_Instantiation_1 .
-
-mmorpg:Creep_Instantiation_3            rdf:type                mmorpg:Creep ;
-                                        mmorpg:name             "Creep_Instantiation_3" ;
-                                        mmorpg:hasResource      mmorpg:Gold_Instantiation_3 .
-
-
-mmorpg:Region_1                         rdf:type                mmorpg:Region ;
-                                        mmorpg:name             "Region_1"  .
-                                        
-mmorpg:NPC_1                            rdf:type                mmorpg:NPC;
-                                        mmorpg:name             "NPC_1";
-                                        mmorpg:isLocated        mmorpg:Region_1 ;                                        
-                                        mmorpg:giveQuest         mmorpg:Quest_1 .
-
-
-mmorpg:NPC_2                            rdf:type                mmorpg:NPC;
-                                        mmorpg:name             "NPC_2";
-                                        mmorpg:isLocated        mmorpg:Region_1 ;                                        
-                                        mmorpg:giveQuest        mmorpg:Quest_2 .
-
-
-mmorpg:Quest_1                          rdf:type                mmorpg:Quest;
-                                        mmorpg:name             "Quest_1" ;
-                                        mmorpg:givenBy           mmorpg:NPC_1.       
-
-
-mmorpg:Quest_2                          rdf:type                mmorpg:Quest;
-                                        mmorpg:name             "Quest_2" ;
-                                        mmorpg:givenBy           mmorpg:NPC_2.       
+[ rdf:type owl:Ontology
+ ] .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://example.com/mmorpg#comment
+mmorpg:comment rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://example.com/mmorpg#contains
+mmorpg:contains rdf:type owl:ObjectProperty ;
+                owl:inverseOf mmorpg:isLocated ;
+                rdfs:domain mmorpg:Region ;
+                rdfs:range mmorpg:Character ;
+                rdfs:comment "Location can contains a group of entities" .
+
+
+###  http://example.com/mmorpg#createdBy
+mmorpg:createdBy rdf:type owl:ObjectProperty ;
+                 owl:inverseOf mmorpg:hasCharacter ;
+                 rdfs:domain mmorpg:Character ;
+                 rdfs:range mmorpg:Account ;
+                 rdfs:comment "Character created by an Account" .
+
+
+###  http://example.com/mmorpg#giveQuest
+mmorpg:giveQuest rdf:type owl:ObjectProperty ;
+                 owl:inverseOf mmorpg:givenBy ;
+                 rdfs:domain mmorpg:NPC ;
+                 rdfs:range mmorpg:Quest ;
+                 rdfs:comment "NPC has an specific mission" .
+
+
+###  http://example.com/mmorpg#givenBy
+mmorpg:givenBy rdf:type owl:ObjectProperty ;
+               rdfs:domain mmorpg:Quest ;
+               rdfs:range mmorpg:NPC ;
+               rdfs:comment "Quest is given by NPC" .
+
+
+###  http://example.com/mmorpg#hasAbility
+mmorpg:hasAbility rdf:type owl:ObjectProperty ;
+                  rdfs:domain mmorpg:Character ;
+                  rdfs:range mmorpg:Ability ;
+                  rdfs:comment "Resource describing the entity" .
+
+
+###  http://example.com/mmorpg#hasCharacter
+mmorpg:hasCharacter rdf:type owl:ObjectProperty ;
+                    rdfs:domain mmorpg:Account ;
+                    rdfs:range mmorpg:Character ;
+                    rdfs:comment "Account hasCharacter a Character" .
+
+
+###  http://example.com/mmorpg#hasClass
+mmorpg:hasClass rdf:type owl:ObjectProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain mmorpg:PlayerCharacter ;
+                rdfs:range mmorpg:Class ;
+                rdfs:comment "Character has an specific class" .
+
+
+###  http://example.com/mmorpg#hasGender
+mmorpg:hasGender rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain mmorpg:Character ;
+                 rdfs:range mmorpg:gender .
+
+
+###  http://example.com/mmorpg#hasQuest
+mmorpg:hasQuest rdf:type owl:ObjectProperty ;
+                rdfs:domain mmorpg:Character ;
+                rdfs:range mmorpg:Quest ;
+                rdfs:comment "NPC has an specific mission" .
+
+
+###  http://example.com/mmorpg#hasResource
+mmorpg:hasResource rdf:type owl:ObjectProperty ;
+                   owl:inverseOf mmorpg:ownedBy ;
+                   rdfs:domain mmorpg:Character ;
+                   rdfs:range mmorpg:Resource ;
+                   rdfs:comment "Resource describing the entity" .
+
+
+###  http://example.com/mmorpg#hasStatus
+mmorpg:hasStatus rdf:type owl:ObjectProperty ;
+                 rdfs:domain mmorpg:Character ;
+                 rdfs:range mmorpg:Status ;
+                 rdfs:comment "Character has an specific status" .
+
+
+###  http://example.com/mmorpg#influencedBy
+mmorpg:influencedBy rdf:type owl:ObjectProperty ;
+                    owl:inverseOf mmorpg:influences ;
+                    rdfs:domain mmorpg:Ability ;
+                    rdfs:range mmorpg:Status ;
+                    rdfs:comment "Ability influenced by an status of character" .
+
+
+###  http://example.com/mmorpg#influences
+mmorpg:influences rdf:type owl:ObjectProperty ;
+                  rdfs:domain mmorpg:Status ;
+                  rdfs:range mmorpg:Ability ;
+                  rdfs:comment "Status of an character influences his ability" .
+
+
+###  http://example.com/mmorpg#isLocated
+mmorpg:isLocated rdf:type owl:ObjectProperty ;
+                 rdfs:domain mmorpg:Character ;
+                 rdfs:range mmorpg:Region ;
+                 rdfs:comment "Location of the enity" .
+
+
+###  http://example.com/mmorpg#ownedBy
+mmorpg:ownedBy rdf:type owl:ObjectProperty ;
+               rdfs:domain mmorpg:Resource ;
+               rdfs:range mmorpg:Character ;
+               rdfs:comment "Resource ownedBy Character" .
+
+
+###  http://example.com/mmorpg#ranInto
+mmorpg:ranInto rdf:type owl:ObjectProperty ,
+                        owl:TransitiveProperty ;
+               rdfs:domain mmorpg:Character ;
+               rdfs:range mmorpg:Character ;
+               rdfs:comment "Action between  two entities" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://example.com/mmorpg#castTime
+mmorpg:castTime rdf:type owl:DatatypeProperty ;
+                rdfs:domain mmorpg:Ability ;
+                rdfs:range xsd:nonNegativeInteger ;
+                rdfs:comment "General cast time for ability" .
+
+
+###  http://example.com/mmorpg#damage
+mmorpg:damage rdf:type owl:DatatypeProperty ;
+              rdfs:domain mmorpg:Character ;
+              rdfs:range xsd:nonNegativeInteger ;
+              rdfs:comment "Total life points damage for ability" .
+
+
+###  http://example.com/mmorpg#dexterity
+mmorpg:dexterity rdf:type owl:DatatypeProperty ;
+                 rdfs:domain mmorpg:Character ;
+                 rdfs:range xsd:nonNegativeInteger ;
+                 rdfs:comment "General experience points of an entity" .
+
+
+###  http://example.com/mmorpg#expPoints
+mmorpg:expPoints rdf:type owl:DatatypeProperty ;
+                 rdfs:domain mmorpg:Character ;
+                 rdfs:range xsd:nonNegativeInteger ;
+                 rdfs:comment "General experience points of an entity" .
+
+
+###  http://example.com/mmorpg#intelligence
+mmorpg:intelligence rdf:type owl:DatatypeProperty ;
+                    rdfs:domain mmorpg:Character ;
+                    rdfs:range xsd:nonNegativeInteger ;
+                    rdfs:comment "General experience points of an entity" .
+
+
+###  http://example.com/mmorpg#lastLoginDate
+mmorpg:lastLoginDate rdf:type owl:DatatypeProperty ;
+                     rdfs:domain mmorpg:Account ;
+                     rdfs:range xsd:date ;
+                     rdfs:comment "The last login date of the MMORPG ACCOUNT - since when the Account perfoms" .
+
+
+###  http://example.com/mmorpg#level
+mmorpg:level rdf:type owl:DatatypeProperty ;
+             rdfs:domain mmorpg:Character ;
+             rdfs:range xsd:nonNegativeInteger ;
+             rdfs:comment "General level of an entity" .
+
+
+###  http://example.com/mmorpg#lifePoints
+mmorpg:lifePoints rdf:type owl:DatatypeProperty ;
+                  rdfs:domain mmorpg:Character ;
+                  rdfs:range xsd:nonNegativeInteger ;
+                  rdfs:comment "General life points of an entity" .
+
+
+###  http://example.com/mmorpg#manaPoints
+mmorpg:manaPoints rdf:type owl:DatatypeProperty ;
+                  rdfs:domain mmorpg:Character ;
+                  rdfs:range xsd:nonNegativeInteger ;
+                  rdfs:comment "General mana points of an entity" .
+
+
+###  http://example.com/mmorpg#name
+mmorpg:name rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain mmorpg:MmorpgEntity ;
+            rdfs:range xsd:string ;
+            rdfs:comment "Name of the resource (string)" .
+
+
+###  http://example.com/mmorpg#strength
+mmorpg:strength rdf:type owl:DatatypeProperty ;
+                rdfs:domain mmorpg:Character ;
+                rdfs:range xsd:nonNegativeInteger ;
+                rdfs:comment "General experience points of an entity" .
+
+
+###  http://example.com/mmorpg#value
+mmorpg:value rdf:type owl:DatatypeProperty ;
+             rdfs:domain mmorpg:Resource ;
+             rdfs:range xsd:nonNegativeInteger ;
+             rdfs:comment "General value of an entity" .
+
+
+###  http://example.com/mmorpg#vitality
+mmorpg:vitality rdf:type owl:DatatypeProperty ;
+                rdfs:domain mmorpg:Character ;
+                rdfs:range xsd:nonNegativeInteger ;
+                rdfs:comment "General experience points of an entity" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://example.com/mmorpg#Ability
+mmorpg:Ability rdf:type owl:Class ;
+               rdfs:subClassOf mmorpg:MmorpgEntity ;
+               rdfs:comment "Gernic ability entity" .
+
+
+###  http://example.com/mmorpg#Account
+mmorpg:Account rdf:type owl:Class ;
+               rdfs:subClassOf mmorpg:MmorpgEntity ,
+                               foaf:Person ;
+               rdfs:comment "Gernic account entity" .
+
+
+###  http://example.com/mmorpg#AssasinType
+mmorpg:AssasinType rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty mmorpg:hasClass ;
+                                         owl:hasValue mmorpg:Assasin
+                                       ] ;
+                   rdfs:subClassOf mmorpg:Character ;
+                   owl:disjointWith mmorpg:MageType ,
+                                    mmorpg:ShamanType ,
+                                    mmorpg:WarriorType .
+
+
+###  http://example.com/mmorpg#Character
+mmorpg:Character rdf:type owl:Class ;
+                 rdfs:subClassOf mmorpg:MmorpgEntity ;
+                 rdfs:comment "Gernic character entity" .
+
+
+###  http://example.com/mmorpg#Class
+mmorpg:Class rdf:type owl:Class ;
+             rdfs:subClassOf mmorpg:MmorpgEntity ;
+             rdfs:comment "Gernic class entity" .
+
+
+###  http://example.com/mmorpg#FemaleType
+mmorpg:FemaleType rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty mmorpg:hasGender ;
+                                        owl:hasValue mmorpg:Female
+                                      ] ;
+                  rdfs:subClassOf mmorpg:Character ;
+                  owl:disjointWith mmorpg:MaleType .
+
+
+###  http://example.com/mmorpg#MageType
+mmorpg:MageType rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty mmorpg:hasClass ;
+                                      owl:hasValue mmorpg:Mage
+                                    ] ;
+                rdfs:subClassOf mmorpg:Character ;
+                owl:disjointWith mmorpg:ShamanType ,
+                                 mmorpg:WarriorType .
+
+
+###  http://example.com/mmorpg#MaleType
+mmorpg:MaleType rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty mmorpg:hasGender ;
+                                      owl:hasValue mmorpg:Male
+                                    ] ;
+                rdfs:subClassOf mmorpg:Character .
+
+
+###  http://example.com/mmorpg#MmorpgEntity
+mmorpg:MmorpgEntity rdf:type owl:Class ;
+                    owl:disjointWith mmorpg:gender ;
+                    rdfs:comment "Gernic mmorpg entity" .
+
+
+###  http://example.com/mmorpg#NPC
+mmorpg:NPC rdf:type owl:Class ;
+           rdfs:subClassOf mmorpg:Character ;
+           owl:disjointWith mmorpg:PlayerCharacter ;
+           rdfs:comment "Gernic non-player character entity" .
+
+
+###  http://example.com/mmorpg#PlayerCharacter
+mmorpg:PlayerCharacter rdf:type owl:Class ;
+                       rdfs:subClassOf mmorpg:Character .
+
+
+###  http://example.com/mmorpg#Quest
+mmorpg:Quest rdf:type owl:Class ;
+             rdfs:subClassOf mmorpg:MmorpgEntity ;
+             rdfs:comment "Generic quest entity" .
+
+
+###  http://example.com/mmorpg#Region
+mmorpg:Region rdf:type owl:Class ;
+              rdfs:subClassOf mmorpg:MmorpgEntity ;
+              rdfs:comment "Gernic region entity" .
+
+
+###  http://example.com/mmorpg#Resource
+mmorpg:Resource rdf:type owl:Class ;
+                rdfs:subClassOf mmorpg:MmorpgEntity ;
+                rdfs:comment "Gernic resource entity" .
+
+
+###  http://example.com/mmorpg#ShamanType
+mmorpg:ShamanType rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty mmorpg:hasClass ;
+                                        owl:hasValue mmorpg:Shaman
+                                      ] ;
+                  rdfs:subClassOf mmorpg:Character ;
+                  owl:disjointWith mmorpg:WarriorType .
+
+
+###  http://example.com/mmorpg#Status
+mmorpg:Status rdf:type owl:Class ;
+              rdfs:subClassOf mmorpg:MmorpgEntity ;
+              rdfs:comment "Gernic status entity" .
+
+
+###  http://example.com/mmorpg#WarriorType
+mmorpg:WarriorType rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty mmorpg:hasClass ;
+                                         owl:hasValue mmorpg:Warrior
+                                       ] ;
+                   rdfs:subClassOf mmorpg:Character .
+
+
+###  http://example.com/mmorpg#gender
+mmorpg:gender rdf:type owl:Class ;
+              rdfs:subClassOf owl:Thing ;
+              rdfs:comment "The gender of an character."^^xsd:string .
+
+
+###  http://xmlns.com/foaf/0.1Person
+foaf:Person rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://example.com/mmorpg#Ability_1_Account_1_Character_1
+mmorpg:Ability_1_Account_1_Character_1 rdf:type owl:NamedIndividual ,
+                                                mmorpg:Ability ;
+                                       mmorpg:influencedBy mmorpg:Status_Account_1_Character_1 ;
+                                       mmorpg:castTime 10 ;
+                                       mmorpg:damage 300 ;
+                                       mmorpg:name "Basic ability" .
+
+
+###  http://example.com/mmorpg#Account_1
+mmorpg:Account_1 rdf:type owl:NamedIndividual ,
+                          mmorpg:Account ;
+                 mmorpg:hasCharacter mmorpg:Account_1_Character_1 ;
+                 mmorpg:lastLoginDate "2018-16-01"^^xsd:date ;
+                 mmorpg:name "Account_1" .
+
+
+###  http://example.com/mmorpg#Account_1_Character_1
+mmorpg:Account_1_Character_1 rdf:type owl:NamedIndividual ,
+                                      mmorpg:MageType ,
+                                      mmorpg:MaleType ,
+                                      mmorpg:PlayerCharacter ;
+                             mmorpg:hasAbility mmorpg:Ability_1_Account_1_Character_1 ;
+                             mmorpg:hasQuest mmorpg:Quest_1 ;
+                             mmorpg:hasResource mmorpg:Gold_Instantiation_2 ,
+                                                mmorpg:Item_1 ;
+                             mmorpg:hasStatus mmorpg:Status_Account_1_Character_1 ;
+                             mmorpg:ranInto mmorpg:Account_2_Character_1 ;
+                             mmorpg:level 1 ;
+                             mmorpg:lifePoints 1000 ;
+                             mmorpg:manaPoints 100 ;
+                             mmorpg:name "Account_1_Character_1" .
+
+
+###  http://example.com/mmorpg#Account_1_Character_2
+mmorpg:Account_1_Character_2 rdf:type owl:NamedIndividual ,
+                                      mmorpg:FemaleType ,
+                                      mmorpg:PlayerCharacter ,
+                                      mmorpg:WarriorType ;
+                             mmorpg:isLocated mmorpg:Region_1 ;
+                             mmorpg:level 30 ;
+                             mmorpg:lifePoints 5000 ;
+                             mmorpg:manaPoints 500 ;
+                             mmorpg:name "Account_1_Character_2" .
+
+
+###  http://example.com/mmorpg#Account_2
+mmorpg:Account_2 rdf:type owl:NamedIndividual ,
+                          mmorpg:Account ;
+                 mmorpg:hasCharacter mmorpg:Account_2_Character_1 ;
+                 mmorpg:lastLoginDate "2018-20-01"^^xsd:date ;
+                 mmorpg:name "Account_2" .
+
+
+###  http://example.com/mmorpg#Account_2_Character_1
+mmorpg:Account_2_Character_1 rdf:type owl:NamedIndividual ,
+                                      mmorpg:FemaleType ,
+                                      mmorpg:PlayerCharacter ,
+                                      mmorpg:ShamanType ;
+                            mmorpg:ranInto         mmorpg:Monster_Instantiation_1 ; 
+                             mmorpg:hasResource mmorpg:Gold_Instantiation_2 ;
+                             mmorpg:isLocated mmorpg:Region_1 ;
+                             mmorpg:name "Account_2_Character_1" .
+
+
+###  http://example.com/mmorpg#Assasin
+mmorpg:Assasin rdf:type owl:NamedIndividual ,
+                        mmorpg:Class ;
+               mmorpg:comment "Assasin class" .
+
+
+###  http://example.com/mmorpg#Female
+mmorpg:Female rdf:type owl:NamedIndividual ,
+                       mmorpg:gender ,
+                       owl:Thing .
+
+
+###  http://example.com/mmorpg#Gold_Instantiation_1
+mmorpg:Gold_Instantiation_1 rdf:type owl:NamedIndividual ,
+                                     mmorpg:Resource ;
+                            mmorpg:name "Gold_Instantiation_1" ;
+                            mmorpg:value 500 .
+
+
+###  http://example.com/mmorpg#Gold_Instantiation_2
+mmorpg:Gold_Instantiation_2 rdf:type owl:NamedIndividual ,
+                                     mmorpg:Resource ;
+                            mmorpg:ownedBy mmorpg:Account_1_Character_1 ,
+                                           mmorpg:Monster_Instantiation_3 ;
+                            mmorpg:name "Gold_Instantiation_1" ;
+                            mmorpg:value 500000 .
+
+
+###  http://example.com/mmorpg#Item_1
+mmorpg:Item_1 rdf:type owl:NamedIndividual ,
+                       mmorpg:Resource ;
+              mmorpg:ownedBy mmorpg:Account_1_Character_1 ;
+              mmorpg:name "Item_1" ;
+              mmorpg:value 1 .
+
+
+###  http://example.com/mmorpg#Mage
+mmorpg:Mage rdf:type owl:NamedIndividual ,
+                     mmorpg:Class ;
+            mmorpg:comment "Mage class" .
+
+
+###  http://example.com/mmorpg#Male
+mmorpg:Male rdf:type owl:NamedIndividual ,
+                     mmorpg:gender ,
+                     owl:Thing .
+
+
+###  http://example.com/mmorpg#Monster_Instantiation_1
+mmorpg:Monster_Instantiation_1 rdf:type owl:NamedIndividual ,
+                                        mmorpg:NPC ;
+                               mmorpg:hasResource mmorpg:Gold_Instantiation_1 ;
+                               mmorpg:isLocated mmorpg:Region_1 ;
+                               mmorpg:name "Monster_Instantiation_1" .
+
+
+###  http://example.com/mmorpg#Monster_Instantiation_2
+mmorpg:Monster_Instantiation_2 rdf:type owl:NamedIndividual ,
+                                        mmorpg:FemaleType ,
+                                        mmorpg:NPC ;
+                               mmorpg:hasResource mmorpg:Gold_Instantiation_1 ;
+                               mmorpg:name "Monster_Instantiation_2" .
+
+
+###  http://example.com/mmorpg#Monster_Instantiation_3
+mmorpg:Monster_Instantiation_3 rdf:type owl:NamedIndividual ,
+                                        mmorpg:NPC ;
+                               mmorpg:hasResource mmorpg:Gold_Instantiation_2 ;
+                               mmorpg:name "Monster_Instantiation_3" .
+
+
+###  http://example.com/mmorpg#NPC_1
+mmorpg:NPC_1 rdf:type owl:NamedIndividual ,
+                      mmorpg:NPC ;
+             mmorpg:giveQuest mmorpg:Quest_1 ;
+             mmorpg:name "NPC_1" .
+
+
+###  http://example.com/mmorpg#NPC_2
+mmorpg:NPC_2 rdf:type owl:NamedIndividual ,
+                      mmorpg:NPC ;
+             mmorpg:giveQuest mmorpg:Quest_2 ;
+             mmorpg:isLocated mmorpg:Region_1 ;
+             mmorpg:name "NPC_2" .
+
+
+###  http://example.com/mmorpg#PlayerCharacter
+mmorpg:PlayerCharacter rdf:type owl:NamedIndividual ,
+                                mmorpg:Character .
+
+
+###  http://example.com/mmorpg#Quest_1
+mmorpg:Quest_1 rdf:type owl:NamedIndividual ,
+                        mmorpg:Quest ;
+               mmorpg:name "Quest_1" .
+
+
+###  http://example.com/mmorpg#Quest_2
+mmorpg:Quest_2 rdf:type owl:NamedIndividual ,
+                        mmorpg:Quest ;
+               mmorpg:name "Quest_2" .
+
+
+###  http://example.com/mmorpg#Region_1
+mmorpg:Region_1 rdf:type owl:NamedIndividual ,
+                         mmorpg:Region ;
+                mmorpg:contains mmorpg:Account_1_Character_1 ,
+                                mmorpg:NPC_2 ;
+                mmorpg:name "Region_1" .
+
+
+###  http://example.com/mmorpg#Shaman
+mmorpg:Shaman rdf:type owl:NamedIndividual ,
+                       mmorpg:Class ;
+              mmorpg:comment "Shaman class" .
+
+
+###  http://example.com/mmorpg#Status_Account_1_Character_1
+mmorpg:Status_Account_1_Character_1 rdf:type owl:NamedIndividual ,
+                                             mmorpg:Status ;
+                                    mmorpg:influences mmorpg:Ability_1_Account_1_Character_1 ;
+                                    mmorpg:dexterity 5 ;
+                                    mmorpg:intelligence 5 ;
+                                    mmorpg:strength 5 ;
+                                    mmorpg:vitality 5 .
+
+
+###  http://example.com/mmorpg#Status_Account_2_Character_1
+mmorpg:Status_Account_2_Character_1 rdf:type owl:NamedIndividual ,
+                                             mmorpg:Status ;
+                                    mmorpg:dexterity 5 ;
+                                    mmorpg:intelligence 5 ;
+                                    mmorpg:strength 5 ;
+                                    mmorpg:vitality 5 .
+
+
+###  http://example.com/mmorpg#Warrior
+mmorpg:Warrior rdf:type owl:NamedIndividual ,
+                        mmorpg:Class ;
+               mmorpg:comment "Warrior class" .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+mmorpg:PlayerCharacter rdfs:comment "Gernic non-player character entity" .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi
