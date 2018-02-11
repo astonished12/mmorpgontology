@@ -592,7 +592,6 @@ mmorpg:Status_Account_2_Character_1 rdf:type owl:NamedIndividual ,
                                     mmorpg:strength 5 ;
                                     mmorpg:vitality 5 .
 
-
 ###  http://example.com/mmorpg#Warrior
 mmorpg:Warrior rdf:type owl:NamedIndividual ,
                         mmorpg:Class ;
