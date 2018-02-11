@@ -221,13 +221,6 @@
                     </table>
                 </figure>
                 
-                
-                    <figure typeof="sa:Image">
-                    <img src="public/resources/querycharacter.png">
-                    <figcaption>
-                        <center>The image representing an SPARQL query for getting all characters with Warrior class</center>
-                    </figcaption>
-                </figure>
 
                 <p>
                     A character is created by an account user and is generally characterized by
@@ -515,10 +508,8 @@
         </figure>
 
         <section id="conclusion">
-            <h2>Description logics and reasoning </h2>
+            <h2>Description logics and reasoning system</h2>
             <p>
-                This ontology was created manually, adding every enity in an individual way. For the best analysis, it is recommended to use an automated process to populate the ontology.
-                Ontology providing description as shown in this paper can be sufficient to give us an overview of games in the category MMORPG. 
                 Each character can have certain common quantitative features (statistics)
                 that we modeled via datatype properties. For example, a character has lifePoints
                 (Health Points), manaPoints alos known as Magic Points, dexterity points, strength points, experience Points and level represented by a number.
@@ -534,7 +525,9 @@
                     <center>Class hierachy: MMORPG </center>
                 </figcaption>
             </figure>
-        </section>
+
+        <p>A Knowledge Base (KB) is composed of
+                2 sets of axioms: <strong>Terminological Box (TBox)</strong>: structural schema and <strong>Assertional Box (ABox)</strong>: data, instances. </p>
         
         <figure typeof="sa:Image">
             <img src="public/resources/TBox.png">
@@ -543,14 +536,37 @@
             </figcaption>
         </figure>
 
+        <p>A semantic reasoner, reasoning engine, rules engine, or simply a reasoner, is a piece of software able to infer logical consequences from a set of asserted facts or axioms.
+            From this ontology we can obtain automatic deductions with HermiT reasoner based on the facts.
+        In this ontology a relation for representing an interact action between two character is given by <strong>ranInto</strong> predicate and the inverse predicate is <strong>collideWith</strong>. Using DL queries we can get automated reasoning.</p>
 
+            <figure typeof="sa:Image">
+                    <img src="public/resources/autoinfe.png">
+                    <figcaption>
+                        <center>Automatic deductions with Hermit </center>
+                    </figcaption>
+                </figure>
+    </section>
+
+    <p>If a character A interacts with another character B there is also an inverse relation. 
+        More this inverse relation is at the base and a transitive property, so if another character C interacts with B there will also be an interaction relationship between A and C.</p>
+    <p>Taking this <strong>ABox</strong> example</p>
+    <li>    mmorpg:Account_1_Character_1  <strong>mmorpg:ranInto</strong> mmorpg:Account_2_Character_1  </li>
+    <li>    mmorpg:Account_2_Character_   <strong>mmorpg:ranInto</strong> mmorpg:Monster_Instantiation_1    </li>
+        <figure typeof="sa:Image">
+                <img src="public/resources/dlquery.png">
+                <figcaption>
+                    <center>DL Query and inference justification </center>
+                </figcaption>
+        </figure>
+    
+        <p>Using the reasoner we can obtain a new relation between <strong>Account_1_Character_1</strong>'s entity and <strong>Account_2_Character_1</strong>'s entity given by ranInto predicate. </p>
         <section id="conclusion">
             <h2>Conclusion & Future considerations</h2>
             <p>
                 This ontology was created manually, adding every enity individually. For the best analysis, it is recommended to use an automated process to populate the ontology.
                 Ontology providing description as shown in this paper can be sufficient to give us an overview of games in the category MMORPG. 
                 That way, ontology will be used as a knowledge model for developing an specific mmorpg game.
-
             </p>
           
         </section>
