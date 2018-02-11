@@ -6,11 +6,12 @@ select * where {
        mmorpg:name ?accountName ;
        mmorpg:hasCharacter ?character .
     	
-    ?character mmorpg:hasClass ?characterClass ;
+    ?character  rdf:type 	?type;
+##               mmorpg:hasClass ?characterClass ;
                mmorpg:level    ?characterLevel ;
                mmorpg:hasStatus	?characterStatus;
     		   mmorpg:name		?nameCharacter . 
-    FILTER(?characterClass IN(mmorpg:Warrior))
+FILTER(?type IN(mmorpg:MageType))
     		   
 } limit 100
 

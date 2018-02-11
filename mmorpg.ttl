@@ -31,6 +31,15 @@ xsd:date rdf:type rdfs:Datatype .
 #    Object Properties
 #################################################################
 
+###  http://example.com/mmorpg#collideWith
+mmorpg:collideWith rdf:type owl:ObjectProperty ;
+                   owl:inverseOf mmorpg:ranInto ;
+                   rdf:type owl:TransitiveProperty ;
+                   rdfs:domain mmorpg:Character ;
+                   rdfs:range mmorpg:Character ;
+                   rdfs:comment "Action between  two entities" .
+
+
 ###  http://example.com/mmorpg#contains
 mmorpg:contains rdf:type owl:ObjectProperty ;
                 owl:inverseOf mmorpg:isLocated ;
@@ -143,8 +152,7 @@ mmorpg:ownedBy rdf:type owl:ObjectProperty ;
 
 
 ###  http://example.com/mmorpg#ranInto
-mmorpg:ranInto rdf:type owl:ObjectProperty ,
-                        owl:TransitiveProperty ;
+mmorpg:ranInto rdf:type owl:ObjectProperty ;
                rdfs:domain mmorpg:Character ;
                rdfs:range mmorpg:Character ;
                rdfs:comment "Action between  two entities" .
@@ -451,9 +459,9 @@ mmorpg:Account_2_Character_1 rdf:type owl:NamedIndividual ,
                                       mmorpg:FemaleType ,
                                       mmorpg:PlayerCharacter ,
                                       mmorpg:ShamanType ;
-                            mmorpg:ranInto         mmorpg:Monster_Instantiation_1 ; 
                              mmorpg:hasResource mmorpg:Gold_Instantiation_2 ;
                              mmorpg:isLocated mmorpg:Region_1 ;
+                             mmorpg:ranInto mmorpg:Monster_Instantiation_1 ;
                              mmorpg:name "Account_2_Character_1" .
 
 
@@ -591,6 +599,7 @@ mmorpg:Status_Account_2_Character_1 rdf:type owl:NamedIndividual ,
                                     mmorpg:intelligence 5 ;
                                     mmorpg:strength 5 ;
                                     mmorpg:vitality 5 .
+
 
 ###  http://example.com/mmorpg#Warrior
 mmorpg:Warrior rdf:type owl:NamedIndividual ,
