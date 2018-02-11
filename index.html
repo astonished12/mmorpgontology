@@ -134,7 +134,7 @@
                 <figure typeof="schema:Table">
                     <table>
                         <thead>
-                        <tr><code>Character</code></tr>
+                        <tr><code>PlayerCharacter</code></tr>
                         <tr>
                             <th>
                                 <center>Property</center>
@@ -198,7 +198,7 @@
                         
                         <tr>
                             <td>ranInto</td>
-                            <td>Character, Creep</td>
+                            <td>Character</td>
                             <td>Action with other entity</td>
                         </tr>
 
@@ -215,7 +215,7 @@
                         </tr>
                         
                         <caption>
-                            The list of properties of the <code>Character</code> entity along with their data
+                            The list of properties of the <code>PlayerCharacter</code> entity along with their data
                             types.
                         </caption>
                     </table>
@@ -241,55 +241,8 @@
                     skills and possessions of the character.
                 </p>
 
-                <figure typeof="schema:Table">
-                    <table>
-                        <thead>
-                        <tr><code>Creep</code></tr>
-                        <tr>
-                            <th><center>Property</center></th>
-                            <th><center>Type</center></th>
-                            <th><center>Description</center></th>
-                        </tr>
-                        </thead>                       
-                                             
-                        <tr>
-                            <td>name</td>
-                            <td>string</td>
-                            <td>the creep's name</td>
-                        </tr>    
-
-                        <tr>
-                            <td>hasResources</td>
-                            <td>array [Resources]</td>
-                            <td>the list of resources</td>
-                        </tr>
-                       
-                        <tr>
-                            <td>isLocated</td>
-                            <td>Region</td>
-                            <td>The region of the creep's location</td>
-                        </tr>
-
-                        <caption>
-                            The list of properties of the <code>Creep</code> entity along with their data types.
-                        </caption>
-                    </table>
-                </figure>
-
+                              
                 
-                <p>
-                    The term "creep" refers to entities with which the user is somewhat bound by
-                    the logic of the game to confront them to meet certain objectives or get some resources.
-                    For example, at the time of destroying a monster, one user can get a certain
-                    amount of gold or virtual objects on which the monster contains them. Destruction of
-                    monsters may be a prerequisite for advancement quests, etc. Monsters have the most
-                    varied representations: animals, aliens, characters humanoid, etc. ​Also, monsters can
-                    have different levels, strength and abilities, making it harder or more easily destroyed.
-                    The actions of these entities are coordinated by the system, generally with the help very
-                    simple decision-making elements.
-                </p>
-
-
                 <figure typeof="schema:Table">
                     <table>
                         <thead>
@@ -329,6 +282,17 @@
                     for example, they may be used to: Implementing certain dialogs with predefined variants
                     within its quests to assist the user to offer certain products or services within the game
                      companions that help the user.
+                </p>
+                <p>
+                    Another entity of NPCs types is the "mob" entity. The term "mob" refers to entities with which the user is somewhat bound by
+                    the logic of the game to confront them to meet certain objectives or get some resources.
+                    For example, at the time of destroying a monster, one user can get a certain
+                    amount of gold or virtual objects on which the monster contains them. Destruction of
+                    monsters may be a prerequisite for advancement quests, etc. Monsters have the most
+                    varied representations: animals, aliens, characters humanoid, etc. ​Also, monsters can
+                    have different levels, strength and abilities, making it harder or more easily destroyed.
+                    The actions of these entities are coordinated by the system, generally with the help very
+                    simple decision-making elements.
                 </p>
                 <figure typeof="schema:Table">
                     <table>
@@ -549,7 +513,37 @@
                 <center>Visual graph on an particular example without sparql queries </center>
             </figcaption>
         </figure>
+
+        <section id="conclusion">
+            <h2>Description logics and reasoning </h2>
+            <p>
+                This ontology was created manually, adding every enity in an individual way. For the best analysis, it is recommended to use an automated process to populate the ontology.
+                Ontology providing description as shown in this paper can be sufficient to give us an overview of games in the category MMORPG. 
+                Each character can have certain common quantitative features (statistics)
+                that we modeled via datatype properties. For example, a character has lifePoints
+                (Health Points), manaPoints alos known as Magic Points, dexterity points, strength points, experience Points and level represented by a number.
+                Also, every character has a gender (male or female) and a type (playable or
+                non-playable). Base on this we have the FemaleType, MaleType, WarriorType, MageType, ShamanType and two subclasses: PlayerCharacter, NonPlayerCharacter(NPC). 
+                So in this ontology the player character may have the the following classes: Warrior, Mage, Shaman, Assasin and can interact with the other actors in game (other players, monsters, NPCs).
+                A NPC can be a monster or just an static character.   
+            </p>
+            
+            <figure typeof="sa:Image">
+                <img src="public/resources/classcategory.png">
+                <figcaption>
+                    <center>Class hierachy: MMORPG </center>
+                </figcaption>
+            </figure>
+        </section>
         
+        <figure typeof="sa:Image">
+            <img src="public/resources/TBox.png">
+            <figcaption>
+                <center>Terminology box example </center>
+            </figcaption>
+        </figure>
+
+
         <section id="conclusion">
             <h2>Conclusion & Future considerations</h2>
             <p>
@@ -564,6 +558,20 @@
         <section typeof="sa:ReferenceList" id="references">
             <h2>References</h2>
             <dl>
+
+                <dt>OWL-BASED MODELING OF RPG GAMES</dt>
+                <dd id="ref-ionic" typeof="schema:CreativeWork"
+                    resource="https://ontotext.com/products/graphdb/">
+                    <cite property="schema:name">
+                        <a href="https://profs.info.uaic.ro/~busaco/teach/courses/wade/demos/owl-dl/MRoman_ISandu_SBuraga_Game-ontology.pdf">OWL-BASED MODELING OF RPG GAMES</a>
+                    </cite>,
+                    by
+                    <span property="schema:author" typeof="schema:Organization">
+                        <span property="schema:name">MONICA ROMAN, IOANA SANDU, SABIN C. BURAGA
+                        </span>
+                    </span>
+                </dd>
+
                 <dt>Specific OWL-based RPG Ontology</dt>
                <dd id="ref-ionic" typeof="schema:CreativeWork"
                     resource="http://graphics.cs.pub.ro/theses/phd/2011/asavei.victor/">
@@ -600,6 +608,7 @@
                         <span property="schema:name">Ontotext</span>
                     </span>
                 </dd>
+               
                
 
             </dl>
